@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Journal Report Builder</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Journal Report Builder</h1>
+    <p class="lede">Upload your daily raw sheet and get a report for every journal: unique submissions, accepted and unsubmitted rates, resubmission counts and e-mail volume.</p>
+  </header>
+
+  <section class="panel" aria-labelledby="up-h">
+    <h2 id="up-h">1. Raw data sheet</h2>
+    <div class="upload">
+      <div id="drop" class="drop">
+        <p><strong>Drop your Excel file here</strong><span class="sub">.xlsx, .xls or .csv. The file is read in your browser and is not uploaded anywhere.</span></p>
+        <label class="btn primary" for="fileInput" id="chooseBtn" tabindex="0" role="button">Choose file</label>
+        <input type="file" id="fileInput" accept=".xlsx,.xls,.xlsm,.csv">
+      </div>
+      <ul class="rules">
+        <li>Row 1: journal name above its first column</li>
+        <li>Row 3: column headings (New submissions, Revised submissions, Resubmissions, Unsubmission, Accepted submissions, Transferred submissions, Authors, Editors, Reviewers, Other)</li>
+        <li>Column A: date like 01.11.2026, with IDs listed below it</li>
+      </ul>
+    </div>
+    <div id="err" class="err" role="alert" hidden style="margin-top:12px"></div>
+    <div id="source" class="source" style="margin-top:12px"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="pe-h">
+    <h2 id="pe-h">2. Reporting period</h2>
+    <div class="period">
+      <div class="field"><label for="dFrom">From</label><input type="date" id="dFrom"></div>
+      <div class="field"><label for="dTo">To</label><input type="date" id="dTo"></div>
+      <button class="btn" id="resetRange" type="button">Whole sheet</button>
+      <span class="spacer"></span>
+      <button class="btn primary" id="copyAll" type="button">Copy all reports</button>
+    </div>
+    <p class="hint" id="rangeHint" style="margin:10px 0 0"></p>
+  </section>
+
+  <section class="panel" aria-labelledby="ov-h">
+    <h2 id="ov-h">3. All journals</h2>
+    <div class="tablewrap" id="overview"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="rp-h">
+    <h2 id="rp-h">4. Journal report</h2>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Journals"></div>
+    <div id="report" role="tabpanel"></div>
+  </section>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- 1. SheetJS reads the Excel file in the browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- 2. logic.js: reading the sheet structure and calculating the numbers -->
+<script src="logic.js"></script>
+<!-- 3. app.js: upload, filters, tables on the page, copy buttons -->
+<script src="app.js"></script>
+</body>
+</html>
